@@ -1,4 +1,4 @@
-from connection import Node, Connection, ConnectionBackRef
+from spyke.graph import Node, Connection, ConnectionBackRef
 
 
 n1 = Node()

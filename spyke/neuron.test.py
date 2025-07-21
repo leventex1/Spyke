@@ -1,4 +1,5 @@
-from spyke.neuron import Neuron, SpikingNeuron, Synapse
+from spyke.neuron import Neuron
+from spyke.snn import SpikingNeuron, Synapse
 
 assert SpikingNeuron().id == 0 and SpikingNeuron().id == 1
 
