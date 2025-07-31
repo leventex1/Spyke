@@ -1,4 +1,3 @@
-from typing import Callable
 from spyke.neuron import Neuron
 from spyke.graph import Connection
 
@@ -16,8 +15,8 @@ class SpikingNeuron(Neuron):
     """
 
     def __init__(self, 
-        reset_value: float = 0.0, 
-        membrane_value: float = 0.0, 
+        reset_value: float = 0.0,
+        membrane_value: float = 0.0,
         threshold_value: float = 1.0
     ):
         super().__init__(reset_value, membrane_value)
@@ -46,3 +45,49 @@ class Synapse(Connection):
     def __init__(self, weight: float, post_neuron: SpikingNeuron) -> None:
         super().__init__(post_neuron)
         self.weight = weight
+
+
+class SpikingNeuronWrapper:
+    """
+    Base class for extending the spiking neuron dynamics.
+    Example: LIFNeuron or AdaptiveThresholdNeuron or the combination of both.
+    """
+
+    def on_init(self, neuron: SpikingNeuron) -> None:
+        pass
+
+    def on_update(self, neuron: SpikingNeuron, time_step: int) -> None:
+        pass
+
+    def on_fire(self, neuron: SpikingNeuron) -> None:
+        pass
+
+
+class ExtendableSpikingNeuron(SpikingNeuron):
+    """
+    Handels the extentions of the spiking neuron.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._wrappers: list[SpikingNeuronWrapper] = []
+
+    def add_sn_wrapper(self, sn_wrapper: SpikingNeuronWrapper) -> None:
+        sn_wrapper.on_init(self)
+        self._wrappers.append(sn_wrapper)
+
+    def update(self, time_step: int) -> None:
+        for wrapper in self._wrappers:
+            wrapper.on_update(self, time_step)
+        super().update(time_step)
+
+    def fire_neuron(self) -> None:
+        for wrapper in self._wrappers:
+            wrapper.on_fire(self)
+        return super().fire_neuron()
+    
+    def get_neuron_wrapper(self, wrapper_type: SpikingNeuronWrapper) -> SpikingNeuronWrapper | None:
+        for wrapper in self._wrappers:
+            if isinstance(wrapper, wrapper_type):
+                return wrapper
+        return None

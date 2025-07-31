@@ -1,5 +1,5 @@
 from research.snn import RecorderSN, InitialStimulus
-from spyke.snn.networkengine import Synapse, FireQueueProcess
+from spyke.snn.networkengine import Synapse
 from spyke.networkengine import NetworkEngine
 
 

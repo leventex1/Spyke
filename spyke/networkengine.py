@@ -38,3 +38,7 @@ class NetworkEngine:
 
         self.process_queue = next_queue
         self.time_step += 1
+
+    def reset(self) -> None:
+        self.process_queue.clear()
+        self.time_step = 0
