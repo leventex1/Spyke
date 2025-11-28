@@ -30,7 +30,7 @@ class AdaptiveThSpikingNeuron(SpikingNeuronWrapper):
         diff *= math.exp(-dt / self.tau)
         neuron.threshold_value = self.base_threshold + diff
 
-    def on_fire(self, neuron):
+    def on_fire(self, neuron, _):
         neuron.threshold_value += self.th_increment
 
 
@@ -48,8 +48,8 @@ class STDPSpikingNeuron(SpikingNeuronWrapper):
         self.min_n = min_n
         self.max_n = max_n
 
-    def on_fire(self, neuron: ExtendableSpikingNeuron):
-        self.last_fire_time_step = neuron.last_updated_time_step
+    def on_fire(self, neuron: ExtendableSpikingNeuron, time_step: int):
+        self.last_fire_time_step = time_step
         for synapse in neuron.connections:
             self._update_synapse(neuron, synapse, synapse.end_node)
         for back_synapse in neuron.back_refs:

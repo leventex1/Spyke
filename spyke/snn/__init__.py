@@ -26,10 +26,10 @@ class SpikingNeuron(Neuron):
     def is_fireing(self) -> bool:
         return self.membrane_value >= self.threshold_value
     
-    def fire_neuron(self):
+    def fire_neuron(self, time_step: int):
         self.reset_neuron()
     
-    def update(self, time_step) -> None:
+    def update(self, time_step: int) -> None:
         self.last_updated_time_step = time_step
     
 
@@ -59,7 +59,7 @@ class SpikingNeuronWrapper:
     def on_update(self, neuron: SpikingNeuron, time_step: int) -> None:
         pass
 
-    def on_fire(self, neuron: SpikingNeuron) -> None:
+    def on_fire(self, neuron: SpikingNeuron, time_step: int) -> None:
         pass
 
 
@@ -81,10 +81,10 @@ class ExtendableSpikingNeuron(SpikingNeuron):
             wrapper.on_update(self, time_step)
         super().update(time_step)
 
-    def fire_neuron(self) -> None:
+    def fire_neuron(self, time_step: int) -> None:
         for wrapper in self._wrappers:
-            wrapper.on_fire(self)
-        return super().fire_neuron()
+            wrapper.on_fire(self, time_step)
+        return super().fire_neuron(time_step)
     
     def get_neuron_wrapper(self, wrapper_type: SpikingNeuronWrapper) -> SpikingNeuronWrapper | None:
         for wrapper in self._wrappers:

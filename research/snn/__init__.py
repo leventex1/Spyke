@@ -9,9 +9,9 @@ class RecorderSN(ExtendableSpikingNeuron):
         super().__init__(reset_value, membrane_value, threshold_value, **kwargs)
         self.spikes = set()
 
-    def fire_neuron(self):
+    def fire_neuron(self, time_step: int):
         self.spikes.add(self.last_updated_time_step)
-        return super().fire_neuron()
+        return super().fire_neuron(time_step)
     
     def print_spikes(self, time_steps: int | list[int], neuron_id_format: Callable[[int], str] | None=None):
         id_format = neuron_id_format(self.id) if neuron_id_format is not None else f"{self.id}"

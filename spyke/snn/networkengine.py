@@ -27,7 +27,7 @@ class FireQueueProcess(QueueProcess):
         if not self.neuron.is_fireing():
             return []
         
-        self.neuron.fire_neuron()
+        self.neuron.fire_neuron(time_step)
         return [SendSpikeQueueProcess(synapse) for synapse in self.neuron.connections]
         
     def is_primary_process(self) -> bool:
