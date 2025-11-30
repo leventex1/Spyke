@@ -1,13 +1,10 @@
 # Spiking Neuron
 
 The *spking neruon* is a digital model, tring to simulate the biological neuron in our brain.
-The basic *spiking neuron* model is the *leaky integrate and fire* (LIF) model, which is the base point where all other models start.
+The basic *spiking neuron* model is the *integrate and fire* (IF) model, which is the base point where all other models start.
 We can use *"addons"* to change the behaviour (essentially the dynamics) of our neuron model.
 
-## Motivation
-
-Seeing the current state of the art artificial neural network methods, where compute and scaling is the main focus to achive *artifical general intelligence* (AGI), feels like a change in paradigm would be beneficial.
-My intuition about AGI is not just to scale a system up to hold every aspect of the data it was previously fed in, but create a form of continous learning system, where adaptation is much more rewarded, than *"knowlage"*, whatever it means.
+// TODO: write down properties of the spiking neuron.
 
 ## Neural Network
 
@@ -52,8 +49,18 @@ At this point we understand the basics of ANNs, with **claver** methods, a whole
 
 ### Essence of SNNs
 
-Think of SNN's as a graph of interconnected nodes, which are transmits signals to each other, you decide which are the output neurons
+Think of SNN's as a graph of interconnected nodes, which are transmits binary signals to each other, you decide which are the output neurons, and are input neurons. You can *"write"* input signals to the input neurons and *"read"* output signals from the output neurons, but you don't necessary know if the output signal is corresponding to the input signal you just sent to the network, because it might be delayed.
+Of course you can still structure the network, such that the signal can only travel from input neurons to output neurons.
+So the output signal will always depends on the state of the network and the input.
 
-## LIF: Leaky Intergrate and Fire
+We can represent input/output signals in different way, some are *rate,-*, *temporal,-*, *latency coding*, later on these.
 
-The most basic form of *spiking neuron* model.
+## IF: Intergrate and Fire Neuron
+
+The most basic form of *spiking neuron* model. It integrates all of it's weighted input throught time and emits a spike when it's membrane potential reaches the threshold.
+
+![integrate and fire neuron activation](./assets/if_neuron.png)
+
+*Figure 1: Integrate and fire neuron activation model*
+
+## LIF: Leaky Integrate and Fire Neuron
