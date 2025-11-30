@@ -64,3 +64,9 @@ The most basic form of *spiking neuron* model. It integrates all of it's weighte
 *Figure 1: Integrate and fire neuron activation model*
 
 ## LIF: Leaky Integrate and Fire Neuron
+
+Using the leaky integrate and fire neuron model is a good trade of of resembling the biological neuron and compoutation complexity. It's main property is that the membrane potential exponentially dacaying back to it's *reset* value. With this model we can imagine that this model have a kind of memory property to it.
+
+![leaky integrate and fire neuron activation](./assets/lif_neuron.png)
+
+*Figure 2: Leaky integrate and fire neuron activation model, membrane potential decaying back to the reset value*
