@@ -4,7 +4,7 @@ The *spking neruon* is a digital model, tring to simulate the biological neuron 
 The basic *spiking neuron* model is the *integrate and fire* (IF) model, which is the base point where all other models start.
 We can use *"addons"* to change the behaviour (essentially the dynamics) of our neuron model.
 
-// TODO: write down properties of the spiking neuron.
+Typically a *spiking neuron* have a **membrane potential** value and a **threshold value**. When the membrane potential reaches or exceeds the threshold, then the neuron emits a spike to the downstream neurons. It have input and output synapses, connecting it to upstream and downstream neurons. These connections are directional, meaning the signal can only travel in one direction, however when it comes to training these neurons, we might need to change this statement a bit. The synapses have a **weight** property, this tells the downstream neuron, how much it's membrane potential should change. These weights can be positive (excitatory) or negative (inhibitory). When we talk about teaching a network, we usually mean changing these weights of the network to the right direction to achive a certain task.
 
 ## Neural Network
 
@@ -50,10 +50,13 @@ At this point we understand the basics of ANNs, with **claver** methods, a whole
 ### Essence of SNNs
 
 Think of SNN's as a graph of interconnected nodes, which are transmits binary signals to each other, you decide which are the output neurons, and are input neurons. You can *"write"* input signals to the input neurons and *"read"* output signals from the output neurons, but you don't necessary know if the output signal is corresponding to the input signal you just sent to the network, because it might be delayed.
+You esssentially get a stream of output signal.
 Of course you can still structure the network, such that the signal can only travel from input neurons to output neurons.
 So the output signal will always depends on the state of the network and the input.
 
 We can represent input/output signals in different way, some are *rate,-*, *temporal,-*, *latency coding*, later on these.
+
+One of the goal of this research is to understand and teach, this graph kind of *reseviour* of *spiking neurons*.
 
 ## IF: Intergrate and Fire Neuron
 
