@@ -22,12 +22,22 @@ class SpikingNeuron(Neuron):
         super().__init__(reset_value, membrane_value)
         self.threshold_value: float = threshold_value
         self.last_updated_time_step: int = 0
+        self.last_fire_time_step: int = None
 
     def is_fireing(self) -> bool:
         return self.membrane_value >= self.threshold_value
     
     def fire_neuron(self, time_step: int):
+        self.last_fire_time_step = time_step
         self.reset_neuron()
+
+        for synapse in self.connections:
+            if isinstance(synapse, Synapse):
+                synapse.on_spike(self, time_step)
+
+        for back_ref in self.back_refs:
+            if isinstance(back_ref.connection, Synapse):
+                back_ref.connection.on_spike(back_ref.start_node, time_step)
     
     def update(self, time_step: int) -> None:
         self.last_updated_time_step = time_step
@@ -45,6 +55,9 @@ class Synapse(Connection):
     def __init__(self, weight: float, post_neuron: SpikingNeuron) -> None:
         super().__init__(post_neuron)
         self.weight = weight
+
+    def on_spike(self, pre_neuron: SpikingNeuron, time_step: int) -> None:
+        pass
 
 
 class SpikingNeuronWrapper:
